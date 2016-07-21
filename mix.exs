@@ -18,7 +18,8 @@ defmodule Indiana.Mixfile do
       :logger,
       :plug,
       :cowboy,
-      :elixometer
+      :elixometer,
+      :exometer
       ]
     ]
   end
@@ -35,6 +36,11 @@ defmodule Indiana.Mixfile do
   defp deps do
     [{:cowboy, "~> 1.0"},
      {:elixometer, github: "pinterest/elixometer"},
+     {:exometer, github: "PSPDFKit-labs/exometer_core"},
+     {:edown, github: "uwiger/edown", tag: "0.7", override: true},
+     {:lager, "~> 3.0.2", override: true},
+     {:parse_trans, "~> 2.9.0", override: true},
+     {:setup, "~> 1.7.0", override: true},
      {:plug, "~> 1.0"}]
   end
 end
