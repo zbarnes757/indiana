@@ -2,44 +2,67 @@ defmodule Indiana.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :indiana,
-     version: "0.1.0",
-     elixir: "~> 1.3",
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     deps: deps]
+    [
+      app: :indiana,
+      version: "0.1.0",
+      elixir: "~> 1.3",
+      elixirc_paths: elixirc_paths(Mix.env),
+      name: "indiana",
+      description: description,
+      package: package,
+      source_url: "https://github.com/zbarnes757/indiana",
+      build_embedded: Mix.env == :prod,
+      start_permanent: Mix.env == :prod,
+      deps: deps
+    ]
   end
 
   # Configuration for the OTP application
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [
-      :logger,
-      :plug,
-      :cowboy,
-      :exometer,
-      :edown,
-      :lager
-      ]
+    [
+      applications: apps(Mix.env),
+      mod: {Indiana, []}
     ]
   end
 
-  # Dependencies can be Hex packages:
-  #
-  #   {:mydep, "~> 0.3.0"}
-  #
-  # Or git/path repositories:
-  #
-  #   {:mydep, git: "https://github.com/elixir-lang/mydep.git", tag: "0.1.0"}
-  #
-  # Type "mix help deps" for more examples and options
+  # Specifies which paths to compile per environment
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_),     do: ["lib"]
+
+  defp apps(_), do: apps
+  defp apps do
+    [:logger]
+  end
+
   defp deps do
-    [{:cowboy, "~> 1.0"},
-     {:exometer_core, github: "PSPDFKit-labs/exometer_core", override: true},
-     {:exometer, github: "PSPDFKit-labs/exometer"},
-     {:edown, github: "uwiger/edown", tag: "0.7", override: true},
-     {:lager, "~> 3.2", override: true},
-     {:plug, "~> 1.0"}]
+    [
+      {:bureaucrat, "~> 0.1.2"},
+      {:earmark, "~> 0.1", only: :docs},
+      {:ecto, "~> 1.1", optional: true},
+      {:ex_doc, "~> 0.11", only: :docs},
+      {:inch_ex, "~> 0.5", only: :docs},
+      {:mix_test_watch, "~> 0.2", only: :dev},
+      {:phoenix, "~> 1.1", optional: true},
+      {:phoenix_ecto, "~> 2.0", only: :test},
+      {:phoenix_html, "~> 2.3", only: :test},
+    ]
+  end
+
+  defp description do
+    """
+    A metrics library to make connecting with New Relic easier.
+    """
+  end
+
+  defp package do
+    [
+      maintainers: ["Zac Barnes"],
+      links: %{
+        "GitHub" => "http://github.com/zbarnes757/indiana",
+        "Docs" => "http://hexdocs.pm/indiana/"
+      }
+    ]
   end
 end
