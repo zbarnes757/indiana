@@ -1,20 +1,21 @@
 defmodule Indiana do
-  @moduledoc false
+  use GenServer
+  @name :indiana
 
-  use Application
+  # Public API
+  def start_link, do: GenServer.start_link(__MODULE__, :ok, name: @name)
 
-  @doc false
-  def start(_type, _args) do
-    import Supervisor.Spec
+  def set(key, value), do: GenServer.cast(@name, {:set, key, value})
 
-    children = [
-      worker(Indiana.Counter, []),
-      worker(Indiana.Gauge, []),
-      worker(Indiana.TimeSeries, []),
-      worker(Indiana.TimeSeries.Aggregated, []),
-      worker(Indiana.TimeSeries.Aggregator, []),
-    ]
+  def send_stats, do: GenServer.cast(@name, {:send})
 
-    Supervisor.start_link(children, strategy: :one_for_one)
+  # Genserver API
+  def init(:ok), do: {:ok, Map.new}
+
+  def handle_cast({:set, key, value}, info), do: {:noreply, Map.put(info, key, value)}
+  def handle_cast({:send}, info) do
+    Apex.ap info
+
+    {:noreply, Map.new}
   end
 end

@@ -47,6 +47,7 @@ defmodule Indiana.Mixfile do
       {:phoenix, "~> 1.1", optional: true},
       {:phoenix_ecto, "~> 2.0", only: :test},
       {:phoenix_html, "~> 2.3", only: :test},
+      {:apex, "~> 0.5.0"}
     ]
   end
 

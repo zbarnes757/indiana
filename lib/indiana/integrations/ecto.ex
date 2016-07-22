@@ -6,8 +6,6 @@ defmodule Indiana.Integrations.Ecto do
       defoverridable [__log__: 1]
       def __log__(entry) do
         if entry.query_time, do: Indiana.TimeSeries.sample("Ecto:QueryTime", entry.query_time / 1000)
-        if entry.queue_time, do: Indiana.TimeSeries.sample("Ecto:QueueTime", entry.queue_time / 1000)
-        Indiana.Counter.incr("Ecto:Queries")
 
         super(entry)
       end
