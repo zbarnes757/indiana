@@ -32,20 +32,21 @@ defmodule Indiana.Mixfile do
 
   defp apps(_), do: apps
   defp apps do
-    [:logger]
+    [
+      :logger,
+      :httpoison
+    ]
   end
 
   defp deps do
     [
       {:bureaucrat, "~> 0.1.2"},
-      {:earmark, "~> 0.1", only: :docs},
       {:ecto, "~> 1.1", optional: true},
-      {:ex_doc, "~> 0.11", only: :docs},
-      {:inch_ex, "~> 0.5", only: :docs},
+      {:httpoison, "~> 0.9.0"},
       {:mix_test_watch, "~> 0.2", only: :dev},
       {:phoenix, "~> 1.1", optional: true},
       {:phoenix_ecto, "~> 2.0", only: :test},
-      {:phoenix_html, "~> 2.3", only: :test}
+      {:phoenix_html, "~> 2.3", only: :test},
     ]
   end
 

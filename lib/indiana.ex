@@ -21,6 +21,7 @@ defmodule Indiana do
   def handle_cast(:clear, _info), do: {:noreply, Map.new}
   def handle_cast({:set, key, value}, stats), do: {:noreply, Map.put(stats, key, value)}
   def handle_cast(:send, stats) do
+    IO.inspect stats
     {:noreply, stats}
   end
 end
