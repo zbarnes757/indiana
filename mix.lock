@@ -1,4 +1,5 @@
 %{"apex": {:hex, :apex, "0.5.1", "d311e8de22491d6438f8ada87c58a6c4a856bae09f3c521c40346728b0171ec8", [:mix], []},
+  "atmo": {:hex, :atmo, "0.1.0", "7967d56e8fc8410559799f8afcfa7b42f30546cb44385f536e947b5487a6c500", [:mix], []},
   "bear": {:hex, :bear, "0.8.3", "866002127a97932720a0d475d8582c98ec5fb78db3a18dfe7eaf91594d9024b8", [:rebar3], []},
   "bureaucrat": {:hex, :bureaucrat, "0.1.4", "63c955828ba6f47f8978d984031e7a208402f634db899999e12352bb72f21aaf", [:mix], [{:plug, "~> 0.14 or ~> 1.0", [hex: :plug, optional: false]}]},
   "certifi": {:hex, :certifi, "0.4.0", "a7966efb868b179023618d29a407548f70c52466bf1849b9e8ebd0e34b7ea11f", [:rebar3], []},

@@ -35,12 +35,14 @@ defmodule Indiana.Mixfile do
   defp apps do
     [
       :logger,
-      :httpoison
+      :httpoison,
+      :atmo
     ]
   end
 
   defp deps do
     [
+      {:atmo, "~> 0.1.0"},
       {:bureaucrat, "~> 0.1.2"},
       {:ecto, "~> 1.1", optional: true},
       {:httpoison, "~> 0.9.0"},

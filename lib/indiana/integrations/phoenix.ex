@@ -20,14 +20,13 @@ defmodule Indiana.Integrations.Phoenix do
       true ->
         start_time = Indiana.Time.now
 
-        register_before_send conn, fn %Plug.Conn{status: status} = conn ->
+        register_before_send conn, fn conn ->
           end_time = Indiana.Time.now
           diff = end_time - start_time
           generic_path = generalize_path(conn)
 
-          Indiana.set_stat("Path", generic_path)
-          Indiana.set_stat("Status", status)
-          Indiana.set_stat("Phoenix:ResponseTime", diff / 1000)
+          Indiana.set_stat("path", generic_path)
+          Indiana.set_stat("phoenix:responseTime", diff)
 
           Indiana.send_stats
 

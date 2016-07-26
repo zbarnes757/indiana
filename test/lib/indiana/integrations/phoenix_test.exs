@@ -19,9 +19,9 @@ defmodule Beaker.Integrations.PhoenixTest do
 
     stats = Indiana.get_stats
 
-    assert stats["Path"] === "/stuff"
-    assert stats["Status"] === 200
-    assert stats["Phoenix:ResponseTime"] != nil
+    assert stats["path"] === "/stuff"
+    assert stats["phoenix:responseTime"] != nil
+    assert stats["metrics"] === nil
   end
 
   test "builds the proper path with an index route" do
@@ -33,7 +33,7 @@ defmodule Beaker.Integrations.PhoenixTest do
 
     stats = Indiana.get_stats
 
-    assert stats["Path"] === "/"
+    assert stats["path"] === "/"
   end
 
   test "Can customize the skip path" do
