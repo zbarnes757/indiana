@@ -22,8 +22,7 @@ defmodule Indiana.Mixfile do
   # Type "mix help compile.app" for more information
   def application do
     [
-      applications: apps(Mix.env),
-      mod: {Indiana, []}
+      applications: apps(Mix.env)
     ]
   end
 
@@ -46,8 +45,7 @@ defmodule Indiana.Mixfile do
       {:mix_test_watch, "~> 0.2", only: :dev},
       {:phoenix, "~> 1.1", optional: true},
       {:phoenix_ecto, "~> 2.0", only: :test},
-      {:phoenix_html, "~> 2.3", only: :test},
-      {:apex, "~> 0.5.0"}
+      {:phoenix_html, "~> 2.3", only: :test}
     ]
   end
 

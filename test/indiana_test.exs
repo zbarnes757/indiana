@@ -1,30 +1,28 @@
 defmodule IndianaTest do
-  use ExUnit.Case, async: true
-  use Plug.Test
+  use ExUnit.Case
 
-  defmodule DemoPlug do
-    use Plug.Builder
-
-    plug Indiana
-
-    plug :index
-    defp index(conn, _opts), do: conn |> send_resp(200, "OK")
+  setup do
+    on_exit fn ->
+      Indiana.clear_stats
+    end
   end
 
-  test "it works!" do
-    conn =
-      conn(:get, "/")
-      |> DemoPlug.call([])
-
-    assert conn.status == 200
+  test "starts with an empty map" do
+    Indiana.start_link
+    assert Indiana.get_stats === %{}
   end
 
-  test "we receive a custom header with content" do
-    conn =
-      conn(:get, "/")
-      |> DemoPlug.call([])
+  test "sets stats in a map" do
+    Indiana.start_link
+    Indiana.set_stat("foo", "bar")
+    assert Indiana.get_stats === %{"foo" => "bar"}
+  end
 
-    [ header ] = get_resp_header(conn, "x-hello-world")
-    assert header === "YEAH IT WORKS!"
+  test "clears stats to an empty map" do
+    Indiana.start_link
+    Indiana.set_stat("foo", "bar")
+    assert Indiana.get_stats === %{"foo" => "bar"}
+    Indiana.clear_stats
+    assert Indiana.get_stats === %{}
   end
 end

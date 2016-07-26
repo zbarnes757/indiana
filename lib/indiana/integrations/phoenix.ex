@@ -13,13 +13,13 @@ defmodule Indiana.Integrations.Phoenix do
 
   def init(opts), do: Keyword.get(opts, :ignore_path)
 
-  def call(%Plug.Conn{path_info: path_info, owner: owner} = conn, ignore_path) do
+  def call(%Plug.Conn{path_info: path_info} = conn, ignore_path) do
+    IndianaSupervisor.start_link
+
     cond do
       ignore(path_info, ignore_path) -> conn
 
       true ->
-        IndianaSupervisor.start_link
-
         start_time = Indiana.Time.now
 
         register_before_send conn, fn %Plug.Conn{status: status} = conn ->
@@ -27,9 +27,9 @@ defmodule Indiana.Integrations.Phoenix do
           diff = end_time - start_time
           generic_path = generalize_path(conn)
 
-          Indiana.set("path", generic_path)
-          Indiana.set("status", status)
-          Indiana.set("ResponseTime", diff / 1000)
+          Indiana.set_stat("Path", generic_path)
+          Indiana.set_stat("Status", status)
+          Indiana.set_stat("Phoenix:ResponseTime", diff / 1000)
 
           Indiana.send_stats
 
@@ -42,11 +42,18 @@ defmodule Indiana.Integrations.Phoenix do
   defp ignore(path_info, ignore_path), do: hd(path_info) == ignore_path
 
   defp generalize_path(%Plug.Conn{params: params, path_info: path_info}) do
-    params
-    |> Enum.map(fn({key, value}) -> {key, Enum.find_index(path_info, &(&1 === value))} end)
-    |> Enum.filter(fn({key, index}) -> index !== nil end)
-    |> sanitize_path_info(path_info)
-    |> Enum.join("/")
+    cond do
+       params === %Plug.Conn.Unfetched{aspect: :params} -> "/" <> Enum.join(path_info, "/")
+       true ->
+         path =
+           params
+           |> Enum.map(fn({key, value}) -> {key, Enum.find_index(path_info, &(&1 === value))} end)
+           |> Enum.filter(fn({_key, index}) -> index !== nil end)
+           |> sanitize_path_info(path_info)
+           |> Enum.join("/")
+
+        "/" <> path
+    end
   end
 
   defp sanitize_path_info([], path_info), do: path_info
