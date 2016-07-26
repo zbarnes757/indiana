@@ -3,6 +3,8 @@ defmodule Indiana do
   @name :indiana
 
   # Public API
+  def start(_type, _args), do: IndianaSupervisor.start_link
+
   def start_link, do: GenServer.start_link(__MODULE__, :ok, name: @name)
 
   def set_stat(key, value), do: GenServer.cast(@name, {:set, key, value})

@@ -22,7 +22,8 @@ defmodule Indiana.Mixfile do
   # Type "mix help compile.app" for more information
   def application do
     [
-      applications: apps(Mix.env)
+      applications: apps(Mix.env),
+      mod: {Indiana, []}
     ]
   end
 

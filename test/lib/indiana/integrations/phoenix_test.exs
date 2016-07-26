@@ -24,6 +24,18 @@ defmodule Beaker.Integrations.PhoenixTest do
     assert stats["Phoenix:ResponseTime"] != nil
   end
 
+  test "builds the proper path with an index route" do
+    conn = conn(:get, "/")
+
+    Indiana.Integrations.Phoenix.call(conn, %{})
+    |> Plug.Conn.resp(200, "hello")
+    |> Plug.Conn.send_resp
+
+    stats = Indiana.get_stats
+
+    assert stats["Path"] === "/"
+  end
+
   test "Can customize the skip path" do
     conn(:get, "/not_indiana")
     |> TestPipeWithPath.call([])
