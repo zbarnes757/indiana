@@ -1,7 +1,7 @@
 defmodule Indiana do
   use GenServer
   @name :indiana
-  @micro_seconds_to_seconds 1_000_000
+  @microseconds_to_milliseconds 1_000
 
   # Public API
   def start(_type, _args), do: IndianaSupervisor.start_link
@@ -26,11 +26,16 @@ defmodule Indiana do
   def handle_cast(:clear, _info), do: {:noreply, Map.new}
   def handle_cast({:set, key, value}, stats), do: {:noreply, Map.put(stats, key, value)}
   def handle_cast({:update_metrics, component, duration}, stats) do
-    new_stats = Map.put(stats, "metrics", Map.merge(%{component => duration / @micro_seconds_to_seconds}, stats["metrics"] || %{}))
+    new_stats = Map.put(stats, "metrics", Map.merge(%{component => duration / @microseconds_to_milliseconds}, stats["metrics"] || %{}))
     {:noreply, new_stats}
   end
   def handle_cast(:send, stats) do
-    IO.inspect stats
-    {:noreply, stats}
+    case Atmo.get(:send_to_new_relic, "true") do
+      "true" ->
+        NewRelic.post(stats)
+        {:noreply, stats}
+      "false" ->
+        {:noreply, stats}
+    end
   end
 end
