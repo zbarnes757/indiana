@@ -44,14 +44,12 @@ defmodule Indiana.Mixfile do
     [
       {:atmo, "~> 0.1.0"},
       {:bureaucrat, "~> 0.1.2"},
-      {:ecto, "~> 1.1", optional: true},
+      {:ecto, "~> 2.0", optional: true},
+      {:exvcr, "~> 0.7", only: :test},
       {:httpoison, "~> 0.9.0"},
       {:mix_test_watch, "~> 0.2", only: :dev},
       {:phoenix, "~> 1.1", optional: true},
-      {:phoenix_ecto, "~> 2.0", only: :test},
-      {:phoenix_html, "~> 2.3", only: :test},
-      {:exvcr, "~> 0.7", only: :test},
-      {:espec, "~> 0.8.27", only: :test}
+      {:postgrex, ">= 0.0.0", only: [:test]},
     ]
   end
 
