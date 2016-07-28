@@ -33,7 +33,7 @@ defmodule Indiana do
     case Atmo.get(:send_to_new_relic, "true") do
       "true" ->
         NewRelic.post(stats)
-        {:noreply, stats}
+        {:noreply, Map.new}
       "false" ->
         {:noreply, stats}
     end

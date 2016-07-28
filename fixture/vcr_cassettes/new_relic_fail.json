@@ -1,0 +1,24 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "X-License-Key": "7308522760f8af90430338b23c5d38df5554536f"
+      },
+      "method": "post",
+      "options": [],
+      "request_body": "",
+      "url": "https://platform-api.newrelic.com/platform/v1/metrics"
+    },
+    "response": {
+      "body": "{\"error\": \"stuff\"}",
+      "headers": {
+        "Content-Length": "16"
+      },
+      "status_code": 400,
+      "type": "ok"
+    }
+  }
+]
