@@ -61,7 +61,9 @@ defmodule Indiana.Mixfile do
 
   defp package do
     [
-      maintainers: ["Zac Barnes"],
+      maintainers: ["Zac Barnes <zac.barnes89@gmail.com>"],
+      files: ["lib", "mix.exs", "README.md", "LICENSE",],
+      licenses: ["MIT"],
       links: %{
         "GitHub" => "http://github.com/zbarnes757/indiana"
       }
