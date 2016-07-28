@@ -63,8 +63,7 @@ defmodule Indiana.Mixfile do
     [
       maintainers: ["Zac Barnes"],
       links: %{
-        "GitHub" => "http://github.com/zbarnes757/indiana",
-        "Docs" => "http://hexdocs.pm/indiana/"
+        "GitHub" => "http://github.com/zbarnes757/indiana"
       }
     ]
   end
