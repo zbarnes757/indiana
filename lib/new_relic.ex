@@ -1,8 +1,9 @@
 defmodule NewRelic do
   require Logger
 
-  @new_relic_url "https://platform-api.newrelic.com/platform/v1/metrics"
+  @new_relic_url                "https://platform-api.newrelic.com/platform/v1/metrics"
   @microseconds_to_milliseconds 1_000
+  @microseconds_to_seconds      1_000_000
 
   def post(stats) do
     headers = [
@@ -41,7 +42,7 @@ defmodule NewRelic do
         %{
           "name" => Atmo.get(:app_name, "indiana"),
           "guid" => "#{Atmo.get(:app_name, "indiana")}.indiana",
-          "duration" => phoenix_response_time / @microseconds_to_milliseconds,
+          "duration" => phoenix_response_time / @microseconds_to_seconds,
           "metrics" => Map.merge(%{"Component/phoenixRoute::#{stats["path"]}[milliseconds|call]" => phoenix_response_time / @microseconds_to_milliseconds}, metrics)
         }
       ]

@@ -11,7 +11,7 @@ use Mix.Config
 # You can configure for your application as:
 #
 config :indiana,
-  version: "0.1.0"
+  version: "0.1.1"
 #
 # And access this configuration in your application as:
 #
