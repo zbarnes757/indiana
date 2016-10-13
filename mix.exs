@@ -50,6 +50,7 @@ defmodule Indiana.Mixfile do
       {:mix_test_watch, "~> 0.2", only: :dev},
       {:phoenix, "~> 1.1", optional: true},
       {:postgrex, ">= 0.0.0", only: [:test]},
+      {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end
 
