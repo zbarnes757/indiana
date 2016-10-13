@@ -31,7 +31,7 @@ defmodule NewRelic do
 
   defp build_new_relic_body(stats) do
     phoenix_response_time = stats["phoenix:responseTime"] || 0
-    metrics = %{"Component/phoenixRoute::#{stats["path"]}[milliseconds|call]" => (phoenix_response_time / @microseconds_to_milliseconds)}
+    metrics = %{"Component/phoenixRoute::" <> (stats["path"] || "/") <> "[milliseconds|call]" => (phoenix_response_time / @microseconds_to_milliseconds)}
 
     %{
       "agent" => %{
