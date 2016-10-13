@@ -31,7 +31,7 @@ defmodule NewRelic do
 
   defp build_new_relic_body(stats) do
     phoenix_response_time = stats["phoenix:responseTime"] || 0
-    metrics = stats["metrics"] || %{}
+    metrics = %{"Component/phoenixRoute::#{stats["path"]}[milliseconds|call]" => (phoenix_response_time / @microseconds_to_milliseconds)}
 
     %{
       "agent" => %{
@@ -43,7 +43,7 @@ defmodule NewRelic do
           "name" => Atmo.get(:app_name, "indiana"),
           "guid" => "#{Atmo.get(:app_name, "indiana")}.indiana",
           "duration" => phoenix_response_time / @microseconds_to_seconds,
-          "metrics" => Map.merge(%{"Component/phoenixRoute::#{stats["path"]}[milliseconds|call]" => (phoenix_response_time / @microseconds_to_milliseconds)}, metrics)
+          "metrics" => Map.merge(metrics, stats["metrics"] || %{})
         }
       ]
     }

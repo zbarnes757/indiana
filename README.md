@@ -10,7 +10,7 @@ Indiana is a plugin for Elixir and Phoenix apps that reports response times to N
 
     ```elixir
     def deps do
-      [{:indiana, "~> 0.1.3"}]
+      [{:indiana, "~> 0.1.4"}]
     end
     ```
 
