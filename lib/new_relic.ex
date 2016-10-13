@@ -43,7 +43,7 @@ defmodule NewRelic do
           "name" => Atmo.get(:app_name, "indiana"),
           "guid" => "#{Atmo.get(:app_name, "indiana")}.indiana",
           "duration" => phoenix_response_time / @microseconds_to_seconds,
-          "metrics" => Map.merge(%{"Component/phoenixRoute::#{stats["path"]}[milliseconds|call]" => phoenix_response_time / @microseconds_to_milliseconds}, metrics)
+          "metrics" => Map.merge(%{"Component/phoenixRoute::#{stats["path"]}[milliseconds|call]" => (phoenix_response_time / @microseconds_to_milliseconds)}, metrics)
         }
       ]
     }

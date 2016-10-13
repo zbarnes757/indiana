@@ -4,7 +4,7 @@ defmodule Indiana.Mixfile do
   def project do
     [
       app: :indiana,
-      version: "0.1.2",
+      version: "0.1.3",
       elixir: "~> 1.2",
       elixirc_paths: elixirc_paths(Mix.env),
       name: "indiana",
